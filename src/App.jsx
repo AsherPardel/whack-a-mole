@@ -4,7 +4,16 @@ import { useState } from "react";
 
 export default function App() {
   const [currentView, setCurrentView] = useState(`A`);
-  let points = 0;
+  const [gameIsPlaying, setGameIsPlaying] = useState(false);
+  const [points, setPoints] = useState(0);
+
+  //
+  //
+  //
+  const startGame = () => {
+    setPoints(0);
+    setGameIsPlaying((prev) => !prev);
+  };
 
   //render welcome page function
   const renderWelcomeA = () => {
@@ -18,13 +27,18 @@ export default function App() {
   const renderGamePageB = () => {
     return (
       <div>
-        <GamePlay />
+        <GamePlay
+          gameIsPlaying={gameIsPlaying}
+          points={points}
+          setPoints={setPoints}
+        />
       </div>
     );
   };
   // toggle button function
   const handleToggle = () => {
     setCurrentView((prev) => (prev === `A` ? `B` : `A`));
+    startGame();
   };
 
   return (
